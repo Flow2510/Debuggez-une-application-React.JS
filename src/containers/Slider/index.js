@@ -11,23 +11,17 @@ const Slider = () => {
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
-const nextCard = () => {
-  if (!Array.isArray(byDateDesc)) return;  // verifie que bydatedesc est la, si elle est pas la, la boucle reprend dans 5s voir si elle est la
-  setTimeout(
-    () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),  // ajout de -1 a lenght
-    5000
-  );
-};
-
-  useEffect(() => {
-    console.log("Valeur de index :", index);
-  }, [index]);
+  const nextCard = () => {
+    if (!Array.isArray(byDateDesc)) return;  // verifie que bydatedesc est la, si elle est pas la, la boucle reprend dans 5s voir si elle est la
+    setTimeout(
+      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),  // ajout de -1 a lenght
+      5000
+    );
+  };
 
   useEffect(() => {
     nextCard();
   });
-
-  console.log("byDateDesc:", byDateDesc);
 
   return (
     <div className="SlideCardList">
