@@ -48,7 +48,7 @@ const Slider = () => {
                   key={e.description}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}
+                  defaultChecked={index === radioIdx}
                 />
               ))}
             </div>
