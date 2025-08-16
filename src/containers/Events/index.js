@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
@@ -9,15 +9,25 @@ import "./style.css";
 
 const PER_PAGE = 9;
 
+
+
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+  const byDateDesc = data?.events.sort((evtA, evtB) =>
+    new Date(evtA.date) - new Date(evtB.date)
+  );
+  useEffect(() => {
+    console.log(byDateDesc);
+  }, [byDateDesc]
+  )
+
   const filteredEvents = (
     (!type
-      ? data?.events
-      : data?.events.filter(event => event.type === type)) || []   // ajout du .filter pour filtrer le type
-  ).filter((event, index) => {
+      ? byDateDesc
+      : byDateDesc.filter(event => event.type === type)) || []   // ajout du .filter pour filtrer le type, ou "|| []" pour creer un tableau vide si il y a une erreur
+  ).filter((__, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
