@@ -16,7 +16,7 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue);                // ajout de newValue en argument 
     setValue(newValue);
     setCollapsed(newValue);
   };
