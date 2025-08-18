@@ -8,7 +8,7 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtB.date) < new Date(evtA.date) ? -1 : 1
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
   const nextCard = () => {
@@ -48,7 +48,7 @@ const Slider = () => {
                   key={e.description}
                   type="radio"
                   name="radio-button"
-                  defaultChecked={index === radioIdx}
+                  checked={index === radioIdx}
                   onChange={() => setIndex(radioIdx)}
                 />
               ))}

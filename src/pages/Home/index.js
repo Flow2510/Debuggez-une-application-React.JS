@@ -131,7 +131,7 @@ const Page = () => {
         <div>01 23 45 67 89</div>
         <div>contact@724events.com</div>
         <div>
-          <a href="#twitch">
+          <a href="https://www.twitch.tv/" target="blank">
             <Icon name="twitch" />
           </a>
           <a href="#facebook">

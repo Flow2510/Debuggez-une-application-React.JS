@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
@@ -18,11 +18,6 @@ const EventList = () => {
   const byDateDesc = data?.events.sort((evtA, evtB) =>
     new Date(evtA.date) - new Date(evtB.date)
   );
-  useEffect(() => {
-    console.log(byDateDesc);
-  }, [byDateDesc]
-  )
-
   const filteredEvents = (
     (!type
       ? byDateDesc
