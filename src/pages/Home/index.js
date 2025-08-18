@@ -13,8 +13,11 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {data} = useData()
-  const last = data?.events?.[data.events.length -1];    // selection de la derniere prestation par rapport a la liste
+  const {data} = useData();
+  const byDateDesc = data?.events.sort((evtA, evtB) =>    // reprise du tableau pour classer par date
+    new Date(evtA.date) > new Date(evtB.date)
+  );
+  const last = byDateDesc?.[0];    // selection de la derniere prestation par rapport a la liste
   return <>
     <header>
       <Menu />
@@ -134,13 +137,13 @@ const Page = () => {
           <a href="https://www.twitch.tv/" target="blank">
             <Icon name="twitch" />
           </a>
-          <a href="#facebook">
+          <a href="https://www.facebook.com/" target="blank">
             <Icon name="facebook" />
           </a>
-          <a href="#twitter">
+          <a href="https://www.twitter.com/" target="blank">
             <Icon name="twitter" />
           </a>
-          <a href="#youtube">
+          <a href="https://www.youtube.com/" target="blank">
             <Icon name="youtube" />
           </a>
         </div>

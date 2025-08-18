@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { getMonth } from "../../helpers/Date";
 
@@ -11,9 +11,11 @@ const Slider = () => {
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
+  const timeOut = useRef(null);               // La propriété .current est mutable : tu peux la lire et la modifier. Contrairement à useState, changer ne provoque pas de re-render.
+
   const nextCard = () => {
     if (!Array.isArray(byDateDesc)) return;  // verifie que bydatedesc est la, si elle est pas la, la boucle reprend dans 5s voir si elle est la
-    setTimeout(
+    timeOut.current = setTimeout(
       () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),  // ajout de -1 a lenght
       5000
     );
@@ -21,7 +23,13 @@ const Slider = () => {
 
   useEffect(() => {
     nextCard();
+    return () => clearTimeout(timeOut.current);
   });
+
+  const changeSlide = (idx) => {
+    clearTimeout(timeOut);
+    setIndex(idx);
+  }
 
   return (
     <div className="SlideCardList">
@@ -47,9 +55,9 @@ const Slider = () => {
                 <input
                   key={e.description}
                   type="radio"
-                  name="radio-button"
+                  name={`radio-button${idx}`}      // ajout de ${idx} pour avoir un nom unique pour chaque slide (conflit entre react et le navigateur)
                   checked={index === radioIdx}
-                  onChange={() => setIndex(radioIdx)}
+                  onChange={() => changeSlide(radioIdx)}
                 />
               ))}
             </div>
