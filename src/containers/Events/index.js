@@ -9,8 +9,6 @@ import "./style.css";
 
 const PER_PAGE = 9;
 
-
-
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
@@ -18,10 +16,10 @@ const EventList = () => {
   const byDateDesc = data?.events.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date)
   );
-  const filteredEvents = (
+  const filteredEvents = (                                              // il faudrait soit nettoyer et renommer coté backend pour les doublons et la dates des evenements pour qu'il y est un identifiant unique
     (!type
       ? byDateDesc
-      : byDateDesc.filter(event => event.type === type)) || []   // ajout du .filter pour filtrer le type, ou "|| []" pour creer un tableau vide si il y a une erreur
+      : byDateDesc.filter(event => event.type === type)) || []          // ajout du .filter pour filtrer le type, ou "|| []" pour creer un tableau vide si il y a une erreur
   ).filter((__, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
@@ -36,7 +34,7 @@ const EventList = () => {
     setType(evtType);
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
-  const typeList = new Set(data?.events.map((event) => event.type));
+  const typeList = new Set((data?.events || []).map((event) => event.type));
   return (
     <>
       {error && <div>An error occured</div>}
