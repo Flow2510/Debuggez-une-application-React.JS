@@ -4,7 +4,7 @@ import Logo from "../../components/Logo";
 
 import "./style.scss";
 
-const Menu = () => (
+const Menu = () => (                     // ajout des hrefs vers les id correspondants
   <nav>
     <Logo />
     <ul>
